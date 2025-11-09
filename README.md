@@ -70,9 +70,11 @@ SDK возвращает готовый `JSONObject` со следующей с�
 
 ## Установка
 
-SDK оформлен как Maven‑проект.  Для сборки необходимо:
+SDK оформлен как Maven-проект. Установить можно двумя способами.
 
-1. Установить JDK 11 или новее.
+### Способ 1: Сборка из исходников (Maven)
+
+1. Установить JDK 21 или новее (работа с JDK <21 не гарантирована).
 2. Склонировать репозиторий или загрузить исходный код.
 3. Выполнить команду:
 
@@ -80,7 +82,13 @@ SDK оформлен как Maven‑проект.  Для сборки необ�
 mvn package -DskipTests
 ```
 
-В результате будет сформирован файл `target/weather-sdk-1.0.0.jar`, который можно подключить к своему проекту.  Maven также автоматически подтянет зависимость `org.json`.
+В результате будет сформирован файл `target/weather-sdk-1.0.0.jar`, который можно подключить к своему проекту.  Maven также автоматически подтянет дополнительные зависимости.
+
+### Способ 2: Скачивание из релиза GitHub
+
+1. Перейдите на [страницу релиза](https://github.com/alex19952/weather-skd/releases):
+2. Скачайте актуальный артефакт.
+3. Добавьте JAR в classpath вашего приложения.
 
 ## Использование
 
@@ -199,6 +207,26 @@ Switch the mode by passing `WeatherMode.ON_DEMAND` or `WeatherMode.POLLING` to `
 * Up to **10 cities** are stored simultaneously (LRU eviction).
 * Data older than **10 minutes** is refreshed automatically.
 * Destroy the instance via `WeatherSDK.destroyInstance(apiKey)` to clear cached data and stop background jobs.
+
+### Installation
+
+The SDK is a Maven project. You can install it in two ways.
+
+#### Option 1: Build from source (Maven)
+
+1. Install **JDK 21 or newer** (current build tested on **21.0.8**).
+2. Clone the repository or download the sources.
+3. Run:
+   ```bash
+   mvn package -DskipTests
+This will produce: `target/weather-sdk-1.0.0.jar`. Add this JAR to your project’s classpath.
+Maven will also automatically pull org.json as a dependency.
+
+#### Option 2: Download from GitHub Release
+
+1. Go to the [release page](https://github.com/alex19952/weather-skd/releases)
+2. Download the latest artifact.
+3. Add the JAR to your application’s classpath.
 
 ### JSON usage example
 
