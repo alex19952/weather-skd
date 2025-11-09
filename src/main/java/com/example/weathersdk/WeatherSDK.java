@@ -94,6 +94,24 @@ public class WeatherSDK {
     }
 
     /**
+     * Retrieves current weather information for the given geographic coordinates
+     * and converts it to the documented JSON structure.
+     *
+     * @param latitude  geographic latitude in decimal degrees (e.g., 56.3267)
+     * @param longitude geographic longitude in decimal degrees (e.g., 44.0065)
+     * @return weather information serialized as a {@link org.json.JSONObject}
+     * @throws WeatherSDKException if the API call fails or the location is not found
+     */
+    public JSONObject getCurrentWeatherJson(double latitude, double longitude) throws WeatherSDKException {
+        WeatherRequest req = new WeatherRequest.Builder()
+                .coordinates(latitude, longitude)
+                .units(Units.METRIC)
+                .language("en")
+                .build();
+        return WeatherJsonSerializer.toJson(service.getWeather(req));
+    }
+
+    /**
      * Retrieves current weather asynchronously as JSON.  Useful in reactive or GUI
      * applications where blocking the thread is undesirable.  The returned
      * future completes exceptionally with {@link WeatherSDKException} if the
@@ -105,6 +123,25 @@ public class WeatherSDK {
     public CompletableFuture<JSONObject> getCurrentWeatherJsonAsync(String cityName) {
         WeatherRequest req = new WeatherRequest.Builder()
                 .city(cityName)
+                .units(Units.METRIC)
+                .language("en")
+                .build();
+        return service.getWeatherAsync(req).thenApply(WeatherJsonSerializer::toJson);
+    }
+
+    /**
+     * Retrieves current weather asynchronously as JSON.  Useful in reactive or GUI
+     * applications where blocking the thread is undesirable.  The returned
+     * future completes exceptionally with {@link WeatherSDKException} if the
+     * lookup fails.
+     *
+     * @param latitude  geographic latitude in decimal degrees (e.g., 56.3267)
+     * @param longitude geographic longitude in decimal degrees (e.g., 44.0065)
+     * @return a future containing the JSON representation of the weather
+     */
+    public CompletableFuture<JSONObject> getCurrentWeatherJsonAsync(double latitude, double longitude) {
+        WeatherRequest req = new WeatherRequest.Builder()
+                .coordinates(latitude, longitude)
                 .units(Units.METRIC)
                 .language("en")
                 .build();
