@@ -15,3 +15,9 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+/.idea/*
+/target
+/out
+/src/main/java/com/example/weathersdk/secret/*
+/src/main/java/com/example/weathersdk/Main.java
